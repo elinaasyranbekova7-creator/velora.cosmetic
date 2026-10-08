@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELORA — косметика</title>
+<meta name="description" content="VELORA — уход, макияж и ароматы. Короткие составы, честные концентрации, бесплатная доставка от $80.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Prata&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg:#F7EEEB; --bg-2:#F0E1DD; --surface:#FFFAF8;
+  --ink:#3A1126; --ink-2:#7A5565; --line:rgba(58,17,38,.15);
+  --rouge:#9C2A52; --gold:#B88F43;
+  --panel:#3A1126; --panel-ink:#F8E9E4; --panel-line:rgba(248,233,228,.18);
+  --t1:#F2D8D4; --t2:#F6DDCB; --t3:#E8D4E1; --t4:#EBDFD3; --t5:#F0D3D9;
+  --shadow:0 34px 60px -34px rgba(58,17,38,.55);
+  --shade:#B5505E;
+  --serif:"Prata","Didot","Bodoni 72","Playfair Display",Georgia,serif;
+  --sans:"Jost","Helvetica Neue",Arial,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1C0912; --bg-2:#26111C; --surface:#2B1421;
+    --ink:#F9EAE5; --ink-2:#C9A8B4; --line:rgba(249,234,229,.16);
+    --rouge:#E2729C; --gold:#D8B369;
+    --panel:#4A1832; --panel-ink:#F8E9E4;
+    --t1:#3B1C2B; --t2:#42261F; --t3:#34203B; --t4:#3A2A2A; --t5:#3F1D2E;
+    --shadow:0 34px 60px -34px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1C0912; --bg-2:#26111C; --surface:#2B1421;
+  --ink:#F9EAE5; --ink-2:#C9A8B4; --line:rgba(249,234,229,.16);
+  --rouge:#E2729C; --gold:#D8B369;
+  --panel:#4A1832; --panel-ink:#F8E9E4;
+  --t1:#3B1C2B; --t2:#42261F; --t3:#34203B; --t4:#3A2A2A; --t5:#3F1D2E;
+  --shadow:0 34px 60px -34px rgba(0,0,0,.8);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 88px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--rouge);outline-offset:3px;border-radius:6px}
+.container{width:min(1240px,100% - 48px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+ 
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.95em 1.7em;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-weight:500;font-size:.95rem;line-height:1;text-decoration:none;transition:background .25s,color .25s,transform .2s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.btn.sm{padding:.7em 1.2em;font-size:.88rem}
+.btn.block{width:100%}
+.icon-btn{position:relative;display:inline-grid;place-items:center;width:44px;height:44px;border:0;background:none;border-radius:50%;transition:background .2s}
+.icon-btn:hover{background:var(--bg-2)}
+.icon-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+ 
+/* header */
+.announce{background:var(--panel);color:var(--panel-ink);text-align:center;font-size:.85rem;padding:.55rem 1rem;letter-spacing:.01em}
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px}
+.nav{display:flex;gap:2rem}
+.nav a{text-decoration:none;font-size:.95rem;padding:.4rem 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+.nav a:hover{background-size:100% 1px}
+.logo{font:400 1.7rem/1 var(--serif);letter-spacing:.34em;text-decoration:none;padding-left:.34em}
+.tools{display:flex;justify-content:flex-end;gap:2px}
+.menu-btn{display:none}
+.count{position:absolute;top:3px;right:1px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--rouge);color:#fff;font-size:.72rem;font-weight:600;display:grid;place-items:center;transform:scale(0);transition:transform .25s}
+.count.on{transform:scale(1)}
+ 
+/* hero */
+.hero{padding:clamp(20px,4vw,52px) 0 clamp(36px,6vw,80px)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(24px,5vw,88px);align-items:center}
+.hero h1{font:400 clamp(3.5rem,9vw,8rem)/.96 var(--serif);letter-spacing:-.015em}
+.lead{max-width:44ch;color:var(--ink-2);font-size:1.1rem;margin:1.5rem 0 2.2rem}
+.shade-label{display:flex;align-items:baseline;gap:.8rem;margin-bottom:.9rem;font-size:.95rem;color:var(--ink-2)}
+.shade-label b{font:400 1.25rem var(--serif);color:var(--ink)}
+.swatches{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:2rem}
+.swatch{position:relative;width:38px;height:38px;border-radius:50%;border:0;padding:0;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.14),inset 6px 6px 10px -4px rgba(255,255,255,.35)}
+.swatch[aria-pressed="true"]::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--ink)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.stage{position:relative;width:100%;max-width:520px;margin-inline:auto;aspect-ratio:4/5}
+.stage-bg{position:absolute;inset:0;border-radius:50% 50% 28px 28px / 40% 40% 28px 28px;background-color:color-mix(in oklab,var(--shade) 26%,var(--bg-2));background-image:radial-gradient(90% 60% at 50% 38%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);transition:background-color .7s ease;box-shadow:var(--shadow)}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.lip-fill{fill:var(--shade);transition:fill .5s ease}
+.swipe{stroke:var(--shade);transition:stroke .5s ease}
+.bullet{animation:twist 1.6s cubic-bezier(.2,.75,.2,1) .35s both}
+@keyframes twist{from{transform:translateY(76px)}to{transform:none}}
+ 
+.perks{border-block:1px solid var(--line)}
+.perks ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.perks li{padding:1.15rem 1rem;text-align:center;font-size:.92rem;color:var(--ink-2)}
+.perks li+li{border-left:1px solid var(--line)}
+ 
+/* sections */
+.section{padding:clamp(60px,9vw,128px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,52px)}
+h2{font:400 clamp(2.1rem,4.4vw,3.6rem)/1.08 var(--serif);letter-spacing:-.01em;max-width:18ch}
+.sec-head p{max-width:42ch;color:var(--ink-2)}
+ 
+/* arches */
+.arch{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:50% 50% var(--r,24px) var(--r,24px) / var(--ry,40%) var(--ry,40%) var(--r,24px) var(--r,24px);background:var(--tint,var(--t1));display:grid;place-items:end center}
+.arch::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 55% at 50% 40%,rgba(255,255,255,.5),rgba(255,255,255,0) 70%);pointer-events:none}
+.arch svg{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+[data-tint="1"]{--tint:var(--t1)}[data-tint="2"]{--tint:var(--t2)}[data-tint="3"]{--tint:var(--t3)}[data-tint="4"]{--tint:var(--t4)}[data-tint="5"]{--tint:var(--t5)}
+ 
+/* collections */
+.collections{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.collection{display:block;text-decoration:none}
+.collection:nth-child(odd){margin-top:56px}
+.collection .arch{--ry:40%}
+.collection:hover .arch svg{transform:translateY(-6px)}
+.collection h3{font:400 1.7rem/1.2 var(--serif);margin-top:1.3rem}
+.collection p{color:var(--ink-2);font-size:.95rem}
+ 
+/* shop */
+.shop-tools{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:none;border-radius:99px;padding:.6em 1.15em;font-size:.92rem;transition:background .2s,color .2s,border-color .2s}
+.tab:hover{border-color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.field{height:44px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:0 1.1rem;font:inherit;font-size:.92rem;min-width:0}
+.field::placeholder{color:var(--ink-2)}
+select.field{padding-right:.8rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,3.4vw,52px) clamp(20px,2.6vw,36px)}
+.card{display:flex;flex-direction:column}
+.card .media{position:relative}
+.card .arch{--r:20px}
+.card:hover .arch svg{transform:translateY(-5px)}
+.badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--surface);color:var(--ink);border-radius:99px;padding:.3em .8em;font-size:.8rem;font-weight:500;box-shadow:0 6px 16px -8px rgba(58,17,38,.5)}
+.fav{position:absolute;top:8px;right:8px;z-index:2}
+.fav svg{width:20px;height:20px}
+.fav[aria-pressed="true"] svg{fill:var(--rouge);stroke:var(--rouge)}
+.card-body{padding-top:1.1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.card h3{font:400 1.3rem/1.2 var(--serif)}
+.sub{color:var(--ink-2);font-size:.92rem}
+.rating{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--ink-2)}
+.rating svg{width:14px;height:14px;fill:var(--gold)}
+.rating b{color:var(--ink);font-weight:500}
+.dots{display:flex;align-items:center;gap:8px;margin-top:.2rem;min-height:24px;flex-wrap:wrap}
+.dot{position:relative;width:20px;height:20px;border-radius:50%;border:0;padding:0;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.dot[aria-pressed="true"]::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--ink)}
+.dot-name{font-size:.82rem;color:var(--ink-2);margin-left:4px}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:.8rem}
+.price{font:400 1.3rem var(--serif)}
+.price s{font:400 .9rem var(--sans);color:var(--ink-2);margin-left:.4rem}
+.empty{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--ink-2)}
+.empty .btn{margin-top:1rem}
+ 
+/* formula */
+.formula{background:var(--panel);color:var(--panel-ink);border-radius:40px;padding:clamp(28px,5vw,76px);display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,6vw,96px);align-items:start}
+.formula h2{max-width:14ch}
+.formula .intro{color:color-mix(in srgb,var(--panel-ink) 78%,transparent);margin:1.2rem 0 1.8rem;max-width:40ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
+.chip{border:1px solid var(--panel-line);border-radius:99px;padding:.4em 1em;font-size:.88rem}
+.formula .arch{--tint:#E9C8BC;width:min(240px,60%);--r:18px}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 24px;padding:1.2rem 0;border-top:1px solid var(--panel-line)}
+.row:last-child{border-bottom:1px solid var(--panel-line)}
+.row b{font:400 1.2rem var(--serif)}
+.row .pct{font:400 1.5rem var(--serif);text-align:right}
+.row .role{color:color-mix(in srgb,var(--panel-ink) 72%,transparent);font-size:.92rem;grid-column:1}
+.track{grid-column:1/-1;height:3px;border-radius:3px;background:var(--panel-line);margin-top:.7rem;overflow:hidden}
+.track i{display:block;height:100%;width:var(--w);border-radius:3px;background:linear-gradient(90deg,#F2B493,#E58F7D)}
+ 
+/* ritual */
+.ritual{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px)}
+.step{display:flex;flex-direction:column;gap:.7rem}
+.step .num{font:400 3.4rem/1 var(--serif);color:var(--rouge)}
+.step .arch{--r:20px;margin-block:.4rem .6rem}
+.step h3{font:400 1.5rem/1.2 var(--serif)}
+.step p{color:var(--ink-2);max-width:34ch}
+.step .btn{align-self:flex-start;margin-top:.6rem}
+.ritual-cta{margin-top:clamp(28px,4vw,52px);display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-top:1.6rem;border-top:1px solid var(--line)}
+.ritual-cta p{color:var(--ink-2)}
+ 
+/* reviews */
+.reviews{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(32px,6vw,96px)}
+.score{font:400 clamp(5rem,12vw,9rem)/.9 var(--serif)}
+.stars{display:flex;gap:4px;margin:1rem 0 .6rem}
+.stars svg{width:20px;height:20px;fill:var(--gold)}
+.review{padding:1.8rem 0;border-top:1px solid var(--line)}
+.review:last-child{border-bottom:1px solid var(--line)}
+.review blockquote{margin:0 0 1rem;font:400 clamp(1.15rem,2vw,1.5rem)/1.45 var(--serif);max-width:42ch}
+.review footer{display:flex;gap:.4rem 1.2rem;flex-wrap:wrap;font-size:.9rem;color:var(--ink-2)}
+.review footer b{color:var(--ink);font-weight:500}
+ 
+/* newsletter */
+.news{background:var(--bg-2);border-radius:40px;padding:clamp(32px,6vw,84px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.news p{color:var(--ink-2);margin-top:1rem;max-width:40ch}
+.news form{display:flex;gap:10px;flex-wrap:wrap}
+.news .field{flex:1 1 220px;height:52px}
+.news .btn{height:52px}
+.form-msg{margin-top:.9rem;min-height:1.5em;font-size:.92rem;color:var(--ink-2);flex-basis:100%}
+.form-msg.err{color:var(--rouge)}
+.form-msg.ok{color:var(--ink)}
+ 
+/* footer */
+footer.site{margin-top:clamp(60px,9vw,120px);border-top:1px solid var(--line);padding-top:clamp(40px,6vw,72px);overflow:hidden}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.foot p{color:var(--ink-2);max-width:32ch;margin-top:1rem}
+.foot h3{font:500 .95rem var(--sans);margin-bottom:1rem}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.foot a{color:var(--ink-2);text-decoration:none;font-size:.95rem}
+.foot a:hover{color:var(--ink);text-decoration:underline}
+.legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:3rem;padding:1.2rem 0;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-2)}
+.big-mark{font:400 clamp(4rem,19vw,17rem)/.9 var(--serif);letter-spacing:.08em;text-align:center;color:var(--bg-2);user-select:none;margin-top:.5rem;padding-bottom:.1em}
+ 
+/* cart drawer */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(40,8,24,.5);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.scrim.show{opacity:1;visibility:visible;transition:opacity .35s}
+.drawer{position:fixed;z-index:70;top:0;right:0;bottom:0;width:min(440px,100%);display:flex;flex-direction:column;background:var(--surface);color:var(--ink);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:-30px 0 60px -30px rgba(40,8,24,.5);transform:translateX(105%);visibility:hidden;transition:transform .45s cubic-bezier(.2,.75,.2,1),visibility 0s .45s}
+.drawer.open{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,.75,.2,1)}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 14px 24px;border-bottom:1px solid var(--line)}
+.d-head h2{font:400 1.6rem var(--serif);max-width:none}
+.d-body{flex:1;overflow:auto;padding:0 24px}
+.ship{padding:1.1rem 0;font-size:.9rem;color:var(--ink-2)}
+.ship .meter{height:4px;border-radius:4px;background:var(--line);margin-top:.6rem;overflow:hidden}
+.ship .meter i{display:block;height:100%;width:var(--p,0%);background:var(--rouge);border-radius:4px;transition:width .5s}
+.lines{list-style:none;margin:0;padding:0}
+.line{display:grid;grid-template-columns:78px 1fr auto;gap:14px;padding:1rem 0;border-top:1px solid var(--line);align-items:start}
+.line .arch{--r:10px;aspect-ratio:4/5}
+.line h3{font:400 1.05rem/1.25 var(--serif)}
+.line .meta{font-size:.85rem;color:var(--ink-2);display:flex;align-items:center;gap:6px;margin-top:2px}
+.line .meta i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:99px;margin-top:.7rem}
+.qty button{width:32px;height:32px;border:0;background:none;border-radius:50%;font-size:1.1rem;line-height:1}
+.qty button:hover{background:var(--bg-2)}
+.qty span{min-width:22px;text-align:center;font-size:.92rem}
+.line .lp{font:400 1.05rem var(--serif);text-align:right}
+.rm{border:0;background:none;padding:0;margin-top:.7rem;font-size:.8rem;color:var(--ink-2);text-decoration:underline}
+.d-foot{border-top:1px solid var(--line);padding:18px 24px 22px;display:grid;gap:12px;background:var(--surface)}
+.promo{display:flex;gap:8px}
+.promo .field{flex:1;height:42px}
+.promo-msg{font-size:.85rem;min-height:1.2em;color:var(--ink-2)}
+.promo-msg.err{color:var(--rouge)}
+.sum{display:flex;justify-content:space-between;font-size:.95rem;color:var(--ink-2)}
+.sum.total{color:var(--ink);font:400 1.4rem var(--serif);padding-top:.4rem;border-top:1px solid var(--line)}
+.d-empty,.d-done{text-align:center;padding:3.5rem 0}
+.d-empty h3,.d-done h3{font:400 1.6rem var(--serif);margin-bottom:.6rem}
+.d-empty p,.d-done p{color:var(--ink-2);max-width:32ch;margin:0 auto 1.5rem}
+.toast{position:fixed;z-index:80;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,24px);background:var(--ink);color:var(--bg);padding:.8rem 1.4rem;border-radius:99px;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+ 
+/* responsive */
+@media (max-width:1000px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .formula,.news,.reviews{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+  .perks ul{grid-template-columns:repeat(2,1fr)}
+  .perks li:nth-child(3){border-left:0}
+  .perks li:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .stage{max-width:440px}
+  .collections,.ritual{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+  .collection:nth-child(odd){margin-top:0}
+  .menu-btn{display:inline-grid}
+  .bar{grid-template-columns:1fr auto 1fr}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:.5rem 24px 1rem;display:none}
+  .site-header.nav-open .nav{display:flex}
+  .nav a{padding:.9rem 0;font-size:1.05rem;background:none}
+  .logo{font-size:1.4rem}
+}
+@media (max-width:560px){
+  .container{width:min(1240px,100% - 32px)}
+  .grid{grid-template-columns:1fr;max-width:380px;margin-inline:auto}
+  .foot{grid-template-columns:1fr}
+  .tab{padding:.55em .95em}
+  .filters,.filters .field{width:100%}
+  .formula,.news{border-radius:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body id="top">
+ 
+<div class="announce">Бесплатная доставка от $80. Два пробника в каждом заказе.</div>
+ 
+<header class="site-header" id="siteHeader">
+  <div class="bar container">
+    <div style="display:flex;align-items:center">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Открыть меню" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="#collections">Коллекции</a>
+        <a href="#shop">Магазин</a>
+        <a href="#formula">Состав</a>
+        <a href="#ritual">Ритуал</a>
+        <a href="#reviews">Отзывы</a>
+      </nav>
+    </div>
+    <a class="logo" href="#top" aria-label="VELORA, на главную">VELORA</a>
+    <div class="tools">
+      <button class="icon-btn" id="searchBtn" aria-label="Найти товар">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="Открыть корзину">
+        <svg viewBox="0 0 24 24"><path d="M5.5 8.5h13l-1 11.5h-11z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/></svg>
+        <span class="count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+ 
+<main>
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Velvet Hour</h1>
+        <p class="lead">Кремовая помада с матовым финишем. Гиалуроновая кислота и масло ши дают комфорт на весь вечер: цвет держится до 8 часов и не въедается в линии губ.</p>
+        <div class="shade-label"><span>Оттенок</span><b id="heroShade" aria-live="polite">104 Rosewood</b></div>
+        <div class="swatches" id="heroSwatches" role="group" aria-label="Выберите оттенок помады"></div>
+        <div class="cta-row">
+          <button class="btn" id="heroAdd">Добавить в корзину, $28</button>
+          <a class="btn ghost" href="#shop">Смотреть всё</a>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <div class="stage-bg"></div>
+      </div>
+    </div>
+  </section>
+ 
+  <div class="perks">
+    <div class="container">
+      <ul>
+        <li>Бесплатная доставка от $80</li>
+        <li>Два пробника в каждом заказе</li>
+        <li>Возврат в течение 30 дней</li>
+        <li>Не тестируется на животных</li>
+      </ul>
+    </div>
+  </div>
+ 
+  <section class="section" id="collections">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Начните с того, что вам нужно</h2>
+        <p>Три направления, в каждом короткая линейка без лишних средств.</p>
+      </div>
+      <div class="collections" id="collectionsGrid"></div>
+    </div>
+  </section>
+ 
+  <section class="section" id="shop" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Бестселлеры</h2>
+        <p>Выбирайте оттенки прямо на карточке: цвет упаковки и содержимого меняется.</p>
+      </div>
+      <div class="shop-tools">
+        <div class="tabs" role="tablist" aria-label="Категории" id="tabs">
+          <button class="tab" role="tab" data-cat="all" aria-selected="true">Все</button>
+          <button class="tab" role="tab" data-cat="care" aria-selected="false">Уход</button>
+          <button class="tab" role="tab" data-cat="makeup" aria-selected="false">Макияж</button>
+          <button class="tab" role="tab" data-cat="scent" aria-selected="false">Ароматы и наборы</button>
+        </div>
+        <div class="filters">
+          <label class="sr" for="q">Поиск по названию</label>
+          <input class="field" id="q" type="search" placeholder="Найти по названию" autocomplete="off">
+          <label class="sr" for="sort">Сортировка</label>
+          <select class="field" id="sort">
+            <option value="pop">Сначала популярные</option>
+            <option value="asc">Сначала дешевле</option>
+            <option value="desc">Сначала дороже</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </div>
+  </section>
+ 
+  <section class="section" id="formula" style="padding-top:0">
+    <div class="container">
+      <div class="formula">
+        <div>
+          <h2>Что внутри сыворотки Lumen 5</h2>
+          <p class="intro">Короткий состав без лишнего. Концентрации указаны на упаковке: вы вправе знать, что наносите на кожу.</p>
+          <div class="chips">
+            <span class="chip">Без отдушек</span>
+            <span class="chip">Без парабенов</span>
+            <span class="chip">Без силиконов</span>
+            <span class="chip">pH 5,5</span>
+          </div>
+          <div class="arch" id="formulaArt" data-tint="2"></div>
+        </div>
+        <ul class="rows" id="rows"></ul>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="ritual" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Ритуал на три шага</h2>
+        <p>Утренний уход занимает пять минут. Наносите по порядку.</p>
+      </div>
+      <div class="ritual" id="ritualGrid"></div>
+      <div class="ritual-cta">
+        <button class="btn" data-add="set">Весь ритуал со скидкой 15%, $92</button>
+        <p>Очищение, сыворотка и крем в одном наборе.</p>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="reviews" style="padding-top:0">
+    <div class="container reviews">
+      <div>
+        <div class="score">4,8</div>
+        <div class="stars" aria-hidden="true"></div>
+        <p class="sub">Средняя оценка по 2 316 отзывам покупателей</p>
+      </div>
+      <div>
+        <article class="review">
+          <blockquote>Через две недели тон стал ровнее, а следы после воспалений почти не видны. Текстура лёгкая, не липнет.</blockquote>
+          <footer><b>Алина К.</b><span>Lumen 5 Serum</span><span>Подтверждённая покупка</span></footer>
+        </article>
+        <article class="review">
+          <blockquote>Наконец матовая помада, которая не стягивает губы. К обеду цвет остался на месте.</blockquote>
+          <footer><b>Мария С.</b><span>Velvet Hour, 104 Rosewood</span><span>Подтверждённая покупка</span></footer>
+        </article>
+        <article class="review">
+          <blockquote>Тёплый, чуть пудровый аромат. Держится на коже весь день, шлейф деликатный.</blockquote>
+          <footer><b>Дина Т.</b><span>Nuit Velora</span><span>Подтверждённая покупка</span></footer>
+        </article>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="news">
+        <div>
+          <h2>−10% на первый заказ</h2>
+          <p>Оставьте почту: пришлём промокод и будем писать о новинках раз в две недели.</p>
+        </div>
+        <form id="newsForm" novalidate>
+          <label class="sr" for="email">Ваша почта</label>
+          <input class="field" id="email" type="email" placeholder="Ваша почта" autocomplete="email">
+          <button class="btn" type="submit">Получить промокод</button>
+          <div class="form-msg" id="newsMsg" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+ 
+<footer class="site">
+  <div class="container">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top" style="padding-left:0">VELORA</a>
+        <p>Уход, макияж и ароматы с короткими составами и честными концентрациями.</p>
+      </div>
+      <div>
+        <h3>Магазин</h3>
+        <ul>
+          <li><a href="#shop" data-go="care">Уход</a></li>
+          <li><a href="#shop" data-go="makeup">Макияж</a></li>
+          <li><a href="#shop" data-go="scent">Ароматы и наборы</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Помощь</h3>
+        <ul>
+          <li><a href="#top">Доставка и оплата</a></li>
+          <li><a href="#top">Возврат</a></li>
+          <li><a href="#top">Подбор оттенка</a></li>
+          <li><a href="#top">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>О бренде</h3>
+        <ul>
+          <li><a href="#formula">Составы</a></li>
+          <li><a href="#top">Упаковка и переработка</a></li>
+          <li><a href="#top">Instagram</a></li>
+          <li><a href="#top">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 VELORA. Все права защищены.</span>
+      <span>Visa, Mastercard, Apple Pay, Google Pay</span>
+    </div>
+  </div>
+  <div class="big-mark" aria-hidden="true">VELORA</div>
+</footer>
+ 
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="d-head">
+    <h2 id="drawerTitle">Корзина</h2>
+    <button class="icon-btn" id="closeCart" aria-label="Закрыть корзину">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+ 
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ 
+/* ---------- data ---------- */
+var SHADES={
+  lip:[{n:'101 Peach Silk',h:'#E58F7D'},{n:'104 Rosewood',h:'#B5505E'},{n:'107 Mauve Hour',h:'#9B5775'},{n:'112 Poppy',h:'#D2342F'},{n:'118 Brick Dust',h:'#A5483A'},{n:'121 Fig',h:'#6E2745'},{n:'126 Berry Noir',h:'#45152F'}],
+  blush:[{n:'Petal',h:'#E9A3A0'},{n:'Apricot',h:'#EE9E7C'},{n:'Orchid',h:'#C47BA0'},{n:'Rosewood',h:'#B25A64'}],
+  foundation:[{n:'110 Porcelain',h:'#F1D3BC'},{n:'220 Sand',h:'#E2B997'},{n:'330 Honey',h:'#C99471'},{n:'440 Cocoa',h:'#9A6648'}]
+};
+var P=[
+  {id:'cleanser',cat:'care',name:'Pearl Gel Cleanser',sub:'Мягкое очищающее средство, 150 мл',price:26,rating:4.7,reviews:412,type:'pump',color:'#FFF3EC',tint:1,label:['Pearl Gel','150 мл']},
+  {id:'serum',cat:'care',name:'Lumen 5 Serum',sub:'Сыворотка с ниацинамидом, 30 мл',price:38,rating:4.9,reviews:1086,type:'serum',color:'#E8A68D',tint:2,tag:'Хит'},
+  {id:'cream',cat:'care',name:'Cloud Barrier Cream',sub:'Крем с керамидами, 50 мл',price:44,rating:4.8,reviews:634,type:'cream',color:'#F6ECE7',tint:3},
+  {id:'lipstick',cat:'makeup',name:'Velvet Hour Lipstick',sub:'Кремово-матовая помада',price:28,rating:4.8,reviews:928,type:'lipstick',shades:'lip',tint:5,tag:'Новинка'},
+  {id:'foundation',cat:'makeup',name:'Second Skin Foundation',sub:'Тональная основа, 30 мл',price:42,rating:4.6,reviews:377,type:'pump',shades:'foundation',tint:4,label:['Second Skin','30 мл']},
+  {id:'blush',cat:'makeup',name:'Petal Blush',sub:'Компактные румяна, 5 г',price:30,rating:4.8,reviews:291,type:'blush',shades:'blush',tint:1},
+  {id:'mascara',cat:'makeup',name:'Lash Veil Mascara',sub:'Тушь для объёма и длины, 9 мл',price:24,rating:4.7,reviews:540,type:'mascara',tint:3},
+  {id:'perfume',cat:'scent',name:'Nuit Velora',sub:'Парфюмерная вода, 50 мл',price:96,rating:4.9,reviews:203,type:'perfume',color:'#F0BFAE',tint:2},
+  {id:'set',cat:'scent',name:'Утренний ритуал',sub:'Очищение, сыворотка и крем',price:92,old:108,rating:4.9,reviews:318,type:'box',tint:5,tag:'−15%'}
+];
+var CATS={care:'Уход',makeup:'Макияж',scent:'Ароматы и наборы'};
+var FREE_FROM=80, SHIP=6;
+ 
+/* ---------- product art (SVG) ---------- */
+var _n=0; function uid(){return 'g'+(++_n)+'_'}
+function G(i){return ''+
+'<linearGradient id="'+i+'gold" x1="0" x2="1"><stop offset="0" stop-color="#8d6b2c"/><stop offset=".22" stop-color="#f6e2a4"/><stop offset=".48" stop-color="#c49a45"/><stop offset=".72" stop-color="#f1d98f"/><stop offset="1" stop-color="#7d5d22"/></linearGradient>'+
+'<linearGradient id="'+i+'blk" x1="0" x2="1"><stop offset="0" stop-color="#15070e"/><stop offset=".25" stop-color="#4a2a38"/><stop offset=".45" stop-color="#1c0b13"/><stop offset="1" stop-color="#0d0509"/></linearGradient>'+
+'<linearGradient id="'+i+'glass" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".18" stop-color="#fff" stop-opacity=".12"/><stop offset=".8" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity=".42"/></linearGradient>'+
+'<linearGradient id="'+i+'cyl" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".3"/><stop offset=".2" stop-color="#fff" stop-opacity=".38"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".32"/></linearGradient>'+
+'<linearGradient id="'+i+'bul" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".38"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></linearGradient>'+
+'<radialGradient id="'+i+'rad" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></radialGradient>'+
+'<radialGradient id="'+i+'sh"><stop offset="0" stop-color="#3b1127" stop-opacity=".38"/><stop offset="1" stop-color="#3b1127" stop-opacity="0"/></radialGradient>';
+}
+function wrap(i,inner){return '<svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><defs>'+G(i)+'</defs>'+inner+'</svg>'}
+function shadow(i,rx){return '<ellipse cx="100" cy="231" rx="'+(rx||56)+'" ry="8" fill="url(#'+i+'sh)"/>'}
+function label(x,y,w,h,l1,l2,l3){
+  var cx=x+w/2;
+  return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="2" fill="#FFFAF7"/>'+
+  '<text x="'+cx+'" y="'+(y+h*.36)+'" text-anchor="middle" font-family="Prata,serif" font-size="'+(w>56?9:7)+'" letter-spacing="1.6" fill="#3A1126">VELORA</text>'+
+  '<text x="'+cx+'" y="'+(y+h*.62)+'" text-anchor="middle" font-family="Jost,sans-serif" font-size="'+(w>56?7:5.6)+'" fill="#7A5565">'+l2+'</text>'+
+  (l3?'<text x="'+cx+'" y="'+(y+h*.84)+'" text-anchor="middle" font-family="Jost,sans-serif" font-size="'+(w>56?6:5)+'" fill="#7A5565">'+l3+'</text>':'');
+}
+var ART={
+  lipstick:function(c,i){var b='M78 124 V78 Q78 70 85 67 L113 55 Q122 51 122 61 V124 Z';
+    return shadow(i)+
+    '<clipPath id="'+i+'clip"><rect x="60" y="0" width="80" height="124"/></clipPath>'+
+    '<g clip-path="url(#'+i+'clip)"><path d="'+b+'" fill="'+c+'"/><path d="'+b+'" fill="url(#'+i+'bul)"/><path d="M85 67 L113 55" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/></g>'+
+    '<rect x="77" y="116" width="46" height="22" rx="3" fill="url(#'+i+'gold)"/><rect x="77" y="116" width="46" height="22" rx="3" fill="url(#'+i+'cyl)"/>'+
+    '<rect x="72" y="136" width="56" height="26" rx="3" fill="url(#'+i+'gold)"/>'+
+    '<rect x="72" y="160" width="56" height="68" rx="5" fill="url(#'+i+'blk)"/>'+
+    '<rect x="72" y="136" width="56" height="92" rx="4" fill="url(#'+i+'cyl)"/>'+
+    '<text x="100" y="154" text-anchor="middle" font-family="Prata,serif" font-size="14" fill="#5e4414" opacity=".8">V</text>';},
+  serum:function(c,i){
+    return shadow(i)+
+    '<rect x="58" y="112" width="84" height="116" rx="14" fill="#F3E4DF"/>'+
+    '<rect x="62" y="130" width="76" height="94" rx="11" fill="'+c+'" opacity=".92"/>'+
+    '<rect x="96" y="108" width="8" height="86" rx="4" fill="#fff" opacity=".5"/>'+
+    label(70,160,60,48,'','Lumen 5','30 мл')+
+    '<rect x="58" y="112" width="84" height="116" rx="14" fill="url(#'+i+'glass)"/>'+
+    '<rect x="82" y="98" width="36" height="18" rx="3" fill="#F3E4DF"/>'+
+    '<rect x="78" y="84" width="44" height="18" rx="3" fill="url(#'+i+'gold)"/>'+
+    '<path d="M90 86 V56 Q90 36 100 36 Q110 36 110 56 V86 Z" fill="#2b1019"/><path d="M90 86 V56 Q90 36 100 36 Q110 36 110 56 V86 Z" fill="url(#'+i+'cyl)"/>';},
+  cream:function(c,i){
+    return shadow(i,66)+
+    '<rect x="40" y="150" width="120" height="78" rx="14" fill="'+c+'"/>'+
+    label(62,170,76,44,'','Cloud Barrier','50 мл')+
+    '<rect x="40" y="150" width="120" height="78" rx="14" fill="url(#'+i+'glass)"/>'+
+    '<rect x="36" y="114" width="128" height="42" rx="9" fill="url(#'+i+'gold)"/><rect x="36" y="114" width="128" height="42" rx="9" fill="url(#'+i+'cyl)"/>'+
+    '<rect x="46" y="119" width="108" height="3" rx="1.5" fill="#fff" opacity=".4"/>';},
+  perfume:function(c,i){
+    return shadow(i,62)+
+    '<rect x="52" y="104" width="96" height="124" rx="10" fill="#F6DFD5"/>'+
+    '<rect x="60" y="112" width="80" height="108" rx="6" fill="'+c+'" opacity=".75"/>'+
+    '<path d="M52 114 L60 112 M148 114 L140 112 M52 218 L60 220 M148 218 L140 220" stroke="#fff" stroke-opacity=".7" stroke-width="1.2"/>'+
+    label(72,146,56,46,'','Nuit','Eau de Parfum 50 мл')+
+    '<rect x="52" y="104" width="96" height="124" rx="10" fill="url(#'+i+'glass)"/>'+
+    '<rect x="88" y="92" width="24" height="14" fill="url(#'+i+'gold)"/>'+
+    '<rect x="78" y="46" width="44" height="50" rx="5" fill="url(#'+i+'gold)"/><rect x="78" y="46" width="44" height="50" rx="5" fill="url(#'+i+'cyl)"/>';},
+  blush:function(c,i){
+    return '<ellipse cx="100" cy="226" rx="70" ry="9" fill="url(#'+i+'sh)"/>'+
+    '<circle cx="100" cy="134" r="76" fill="url(#'+i+'gold)"/>'+
+    '<circle cx="100" cy="134" r="64" fill="#2a1220"/>'+
+    '<circle cx="100" cy="134" r="58" fill="'+c+'"/><circle cx="100" cy="134" r="58" fill="url(#'+i+'rad)"/>'+
+    '<circle cx="100" cy="134" r="40" fill="none" stroke="#fff" stroke-opacity=".14"/><circle cx="100" cy="134" r="22" fill="none" stroke="#fff" stroke-opacity=".14"/>'+
+    '<text x="100" y="146" text-anchor="middle" font-family="Prata,serif" font-size="32" fill="#fff" opacity=".22">V</text>'+
+    '<path d="M54 112 A58 58 0 0 1 98 76" stroke="#fff" stroke-opacity=".55" stroke-width="3" fill="none" stroke-linecap="round"/>';},
+  mascara:function(c,i){
+    return shadow(i,40)+
+    '<rect x="84" y="136" width="32" height="92" rx="7" fill="url(#'+i+'blk)"/>'+
+    '<rect x="80" y="62" width="40" height="70" rx="8" fill="url(#'+i+'blk)"/>'+
+    '<rect x="79" y="124" width="42" height="14" rx="2" fill="url(#'+i+'gold)"/>'+
+    '<text transform="translate(104 220) rotate(-90)" font-family="Prata,serif" font-size="10" letter-spacing="3" fill="#E9D08C">VELORA</text>'+
+    '<rect x="80" y="62" width="40" height="166" rx="8" fill="url(#'+i+'cyl)"/>';},
+  pump:function(c,i,p){var l=p.label||['VELORA','30 мл'];
+    return shadow(i,50)+
+    '<rect x="66" y="122" width="68" height="106" rx="10" fill="#F7EFEA"/>'+
+    '<rect x="70" y="146" width="60" height="78" rx="7" fill="'+c+'"/>'+
+    label(76,168,48,40,'',l[0],l[1])+
+    '<rect x="66" y="122" width="68" height="106" rx="10" fill="url(#'+i+'glass)"/>'+
+    '<rect x="88" y="106" width="24" height="18" rx="3" fill="url(#'+i+'gold)"/>'+
+    '<rect x="96" y="82" width="8" height="26" fill="#d9c9c3"/>'+
+    '<rect x="82" y="64" width="36" height="18" rx="6" fill="#2b1019"/><rect x="114" y="69" width="24" height="7" rx="3.5" fill="#2b1019"/>'+
+    '<rect x="86" y="67" width="12" height="3" rx="1.5" fill="#fff" opacity=".35"/>';},
+  box:function(c,i){
+    return shadow(i,72)+
+    '<rect x="36" y="130" width="128" height="98" rx="6" fill="#4A1630"/><rect x="36" y="130" width="128" height="98" rx="6" fill="url(#'+i+'cyl)" opacity=".5"/>'+
+    '<rect x="30" y="106" width="140" height="30" rx="5" fill="#5D2142"/><rect x="30" y="106" width="140" height="30" rx="5" fill="url(#'+i+'cyl)" opacity=".5"/>'+
+    '<rect x="92" y="106" width="16" height="122" fill="url(#'+i+'gold)"/>'+
+    '<path d="M100 104 C78 70 52 90 78 104 Z" fill="url(#'+i+'gold)"/><path d="M100 104 C122 70 148 90 122 104 Z" fill="url(#'+i+'gold)"/>'+
+    '<rect x="94" y="98" width="12" height="12" rx="3" fill="url(#'+i+'gold)"/>'+
+    '<text x="64" y="186" text-anchor="middle" font-family="Prata,serif" font-size="10" letter-spacing="2" fill="#F0D9A0">VELORA</text>'+
+    '<text x="64" y="198" text-anchor="middle" font-family="Jost,sans-serif" font-size="7" fill="#E8C9D6">Ritual</text>';}
+};
+function colorOf(p,idx){return p.shades?SHADES[p.shades][idx||0].h:p.color}
+function art(p,idx){var i=uid();return wrap(i,ART[p.type](colorOf(p,idx),i,p))}
+function byId(id){for(var k=0;k<P.length;k++)if(P[k].id===id)return P[k]}
+ 
+/* hero svg */
+function heroSVG(){var i='h_';
+  return '<svg viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Помада Velvet Hour на жемчужном пьедестале"><defs>'+G(i)+
+  '<radialGradient id="'+i+'sun"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'+
+  '<linearGradient id="'+i+'ped" x1="0" x2="1"><stop offset="0" stop-color="#c9abaf"/><stop offset=".25" stop-color="#fbeeea"/><stop offset=".6" stop-color="#ecd6d4"/><stop offset="1" stop-color="#b3949a"/></linearGradient>'+
+  '<radialGradient id="'+i+'pearl" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#f1dcd8"/><stop offset="1" stop-color="#c3a2a8"/></radialGradient>'+
+  '<clipPath id="'+i+'clip"><rect x="196" y="0" width="88" height="338"/></clipPath></defs>'+
+  '<circle cx="240" cy="262" r="170" fill="url(#'+i+'sun)"/>'+
+  '<ellipse cx="240" cy="556" rx="172" ry="20" fill="url(#'+i+'sh)"/>'+
+  '<path d="M104 466 V530 A136 24 0 0 0 376 530 V466 Z" fill="url(#'+i+'ped)"/>'+
+  '<ellipse cx="240" cy="466" rx="136" ry="24" fill="#FDF3F0"/>'+
+  '<ellipse cx="246" cy="465" rx="92" ry="11" fill="#3b1127" opacity=".16"/>'+
+  '<circle cx="150" cy="470" r="13" fill="url(#'+i+'pearl)"/><circle cx="174" cy="479" r="9" fill="url(#'+i+'pearl)"/>'+
+  '<rect x="302" y="346" width="60" height="116" rx="7" fill="url(#'+i+'blk)"/>'+
+  '<rect x="300" y="434" width="64" height="22" rx="3" fill="url(#'+i+'gold)"/>'+
+  '<rect x="300" y="346" width="64" height="116" rx="7" fill="url(#'+i+'cyl)"/>'+
+  '<g clip-path="url(#'+i+'clip)"><g class="bullet">'+
+    '<path class="lip-fill" d="M214 342 V264 Q214 255 222 252 L257 237 Q267 233 267 243 V342 Z"/>'+
+    '<path d="M214 342 V264 Q214 255 222 252 L257 237 Q267 233 267 243 V342 Z" fill="url(#'+i+'bul)"/>'+
+    '<path d="M223 252 L257 237" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>'+
+  '</g></g>'+
+  '<rect x="210" y="336" width="60" height="24" rx="3" fill="url(#'+i+'gold)"/><rect x="210" y="336" width="60" height="24" rx="3" fill="url(#'+i+'cyl)"/>'+
+  '<rect x="203" y="358" width="74" height="28" rx="3" fill="url(#'+i+'gold)"/>'+
+  '<rect x="203" y="384" width="74" height="78" rx="6" fill="url(#'+i+'blk)"/>'+
+  '<rect x="203" y="358" width="74" height="104" rx="5" fill="url(#'+i+'cyl)"/>'+
+  '<text x="240" y="379" text-anchor="middle" font-family="Prata,serif" font-size="18" fill="#5e4414" opacity=".8">V</text>'+
+  '<path class="swipe" d="M58 580 C108 562 160 594 232 574" fill="none" stroke-width="22" stroke-linecap="round"/>'+
+  '<path d="M66 573 C110 558 160 586 224 568" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="4" stroke-linecap="round"/>'+
+  '</svg>';
+}
+ 
+/* ---------- helpers ---------- */
+function fmt(n){return '$'+n.toFixed(2).replace(/\.00$/,'').replace('.',',')}
+function plural(n,f){var a=n%10,b=n%100;return n+' '+(a===1&&b!==11?f[0]:(a>=2&&a<=4&&(b<10||b>=20)?f[1]:f[2]))}
+function num(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0')}
+var STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.6 6.1 20.8l1.2-6.5L2.5 9.7l6.6-.9z"/></svg>';
+var HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.6-9.4A5.4 5.4 0 0 1 12 6.2a5.4 5.4 0 0 1 9.6 4.9c-2.1 4.8-9.6 9.4-9.6 9.4z"/></svg>';
+function store(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k))}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+ 
+var toastT;
+function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2200)}
+ 
+/* ---------- hero ---------- */
+var heroIdx=1;
+$('#stage').insertAdjacentHTML('beforeend',heroSVG());
+var sw=$('#heroSwatches');
+SHADES.lip.forEach(function(s,k){
+  var b=document.createElement('button');b.className='swatch';b.style.setProperty('--c',s.h);b.setAttribute('aria-label',s.n);b.setAttribute('aria-pressed',k===heroIdx);b.dataset.k=k;sw.appendChild(b);
+});
+function setHero(k){
+  heroIdx=k;var s=SHADES.lip[k];
+  $('#hero').style.setProperty('--shade',s.h);
+  $('#heroShade').textContent=s.n;
+  $$('.swatch',sw).forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.k===k)});
+}
+sw.addEventListener('click',function(e){var b=e.target.closest('.swatch');if(b)setHero(+b.dataset.k)});
+$('#hero').style.setProperty('--shade',SHADES.lip[heroIdx].h);
+ 
+/* ---------- collections ---------- */
+(function(){
+  var items=[{cat:'care',id:'serum',tint:2},{cat:'makeup',id:'lipstick',tint:5,c:3},{cat:'scent',id:'perfume',tint:1}];
+  $('#collectionsGrid').innerHTML=items.map(function(it){
+    var p=byId(it.id),cnt=P.filter(function(x){return x.cat===it.cat}).length;
+    return '<a class="collection" href="#shop" data-go="'+it.cat+'"><div class="arch" data-tint="'+it.tint+'">'+art(p,it.c||0)+'</div><h3>'+CATS[it.cat]+'</h3><p>'+plural(cnt,['продукт','продукта','продуктов'])+'</p></a>';
+  }).join('');
+})();
+ 
+/* ---------- shop ---------- */
+var state={cat:'all',q:'',sort:'pop',sel:{},fav:store('velora-fav')||{}};
+function shadeName(p){return p.shades?SHADES[p.shades][state.sel[p.id]||0].n:''}
+function cardHTML(p){
+  var idx=state.sel[p.id]||0;
+  var dots='';
+  if(p.shades){
+    dots='<div class="dots" role="group" aria-label="Оттенок: '+p.name+'">'+SHADES[p.shades].map(function(s,k){return '<button class="dot" style="--c:'+s.h+'" data-shade="'+k+'" aria-label="'+s.n+'" aria-pressed="'+(k===idx)+'"></button>'}).join('')+'<span class="dot-name">'+shadeName(p)+'</span></div>';
+  }
+  return '<article class="card" data-id="'+p.id+'">'+
+    '<div class="media">'+(p.tag?'<span class="badge">'+p.tag+'</span>':'')+
+    '<button class="icon-btn fav" data-fav aria-label="В избранное" aria-pressed="'+(!!state.fav[p.id])+'">'+HEART+'</button>'+
+    '<div class="arch" data-tint="'+p.tint+'">'+art(p,idx)+'</div></div>'+
+    '<div class="card-body"><h3>'+p.name+'</h3><p class="sub">'+p.sub+'</p>'+
+    '<div class="rating">'+STAR+'<b>'+String(p.rating).replace('.',',')+'</b><span>('+num(p.reviews)+')</span></div>'+dots+
+    '<div class="buy"><span class="price">'+fmt(p.price)+(p.old?'<s>'+fmt(p.old)+'</s>':'')+'</span><button class="btn sm" data-add="'+p.id+'">В корзину</button></div></div></article>';
+}
+function renderShop(){
+  var q=state.q.trim().toLowerCase();
+  var list=P.filter(function(p){return (state.cat==='all'||p.cat===state.cat)&&(!q||(p.name+' '+p.sub).toLowerCase().indexOf(q)>-1)});
+  list.sort(function(a,b){return state.sort==='asc'?a.price-b.price:state.sort==='desc'?b.price-a.price:b.reviews-a.reviews});
+  $('#grid').innerHTML=list.length?list.map(cardHTML).join(''):'<div class="empty"><p>Ничего не найдено. Попробуйте другое название или сбросьте фильтры.</p><button class="btn ghost sm" data-reset>Сбросить фильтры</button></div>';
+}
+function setCat(c){
+  state.cat=c;
+  $$('.tab').forEach(function(t){t.setAttribute('aria-selected',t.dataset.cat===c)});
+  renderShop();
+}
+$('#tabs').addEventListener('click',function(e){var t=e.target.closest('.tab');if(t)setCat(t.dataset.cat)});
+$('#q').addEventListener('input',function(e){state.q=e.target.value;renderShop()});
+$('#sort').addEventListener('change',function(e){state.sort=e.target.value;renderShop()});
+$('#grid').addEventListener('click',function(e){
+  var d=e.target.closest('[data-shade]');
+  if(d){
+    var card=d.closest('.card'),p=byId(card.dataset.id);state.sel[p.id]=+d.dataset.shade;
+    $('.arch',card).innerHTML=art(p,state.sel[p.id]);
+    $$('.dot',card).forEach(function(x){x.setAttribute('aria-pressed',x===d)});
+    $('.dot-name',card).textContent=shadeName(p);
+    return;
+  }
+  var f=e.target.closest('[data-fav]');
+  if(f){
+    var id=f.closest('.card').dataset.id;
+    if(state.fav[id])delete state.fav[id];else state.fav[id]=1;
+    store('velora-fav',state.fav);f.setAttribute('aria-pressed',!!state.fav[id]);
+    return;
+  }
+  if(e.target.closest('[data-reset]')){state.q='';state.sort='pop';$('#q').value='';$('#sort').value='pop';setCat('all')}
+});
+document.addEventListener('click',function(e){
+  var g=e.target.closest('[data-go]');
+  if(g){setCat(g.dataset.go);$('#siteHeader').classList.remove('nav-open')}
+});
+$('#searchBtn').addEventListener('click',function(){
+  $('#shop').scrollIntoView({behavior:'smooth'});
+  setTimeout(function(){$('#q').focus({preventScroll:true})},500);
+});
+ 
+/* ---------- formula + ritual + stars ---------- */
+$('#formulaArt').innerHTML=art(byId('serum'));
+var ING=[['Ниацинамид','5%',5,'Выравнивает тон и сужает поры'],['Гиалуроновая кислота, три молекулярных веса','1,5%',1.5,'Удерживает влагу в разных слоях кожи'],['Пантенол','2%',2,'Успокаивает и смягчает'],['Центелла азиатская','1%',1,'Помогает восстановить кожный барьер'],['PCA цинка','0,5%',.5,'Контролирует жирный блеск']];
+$('#rows').innerHTML=ING.map(function(r){return '<li class="row"><b>'+r[0]+'</b><span class="pct">'+r[1]+'</span><span class="role">'+r[3]+'</span><span class="track"><i style="--w:'+(r[2]/5*100)+'%"></i></span></li>'}).join('');
+ 
+var STEPS=[['cleanser','Очищение','Вспеньте на влажной коже и смойте тёплой водой.'],['serum','Сыворотка','Две-три капли на сухую кожу лица и шеи.'],['cream','Крем','Горошина крема закрепляет увлажнение и защищает барьер.']];
+$('#ritualGrid').innerHTML=STEPS.map(function(s,k){var p=byId(s[0]);return '<div class="step"><span class="num">'+(k+1)+'</span><div class="arch" data-tint="'+p.tint+'">'+art(p)+'</div><h3>'+s[1]+'</h3><p>'+s[2]+'</p><button class="btn ghost sm" data-add="'+p.id+'">'+p.name+', '+fmt(p.price)+'</button></div>'}).join('');
+$('.stars').innerHTML=new Array(6).join(STAR);
+ 
+/* ---------- cart ---------- */
+var cart=(store('velora-cart')||[]).filter(function(l){return l&&byId(l.id)&&l.qty>0});
+var promo=false,view='cart',lastFocus=null;
+function persist(){store('velora-cart',cart)}
+function count(){return cart.reduce(function(a,l){return a+l.qty},0)}
+function lineKey(l){return l.id+'|'+l.shade}
+function addToCart(id,shade){
+  shade=shade||0;var f=null;
+  cart.forEach(function(l){if(l.id===id&&l.shade===shade)f=l});
+  if(f)f.qty++;else cart.push({id:id,shade:shade,qty:1});
+  persist();view='cart';renderCart();
+  toast('Добавлено в корзину');
+  var c=$('#cartBtn');c.animate&&c.animate([{transform:'scale(1)'},{transform:'scale(1.18)'},{transform:'scale(1)'}],{duration:380});
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-add]');
+  if(!a)return;
+  var id=a.dataset.add,p=byId(id),sh=0;
+  if(p.shades){var card=a.closest('.card');sh=card?(state.sel[id]||0):0}
+  addToCart(id,sh);
+});
+$('#heroAdd').addEventListener('click',function(){addToCart('lipstick',heroIdx)});
+ 
+function totals(){
+  var sub=0;cart.forEach(function(l){sub+=byId(l.id).price*l.qty});
+  var disc=promo?sub*.1:0;var after=sub-disc;
+  var ship=cart.length?(after>=FREE_FROM?0:SHIP):0;
+  return {sub:sub,disc:disc,ship:ship,total:after+ship,after:after};
+}
+function renderCart(){
+  var n=count(),cc=$('#cartCount');
+  cc.textContent=n;cc.classList.toggle('on',n>0);
+  $('#cartBtn').setAttribute('aria-label','Открыть корзину, товаров: '+n);
+  var body=$('#dBody'),foot=$('#dFoot');
+  if(view==='done'){return}
+  if(!cart.length){
+    body.innerHTML='<div class="d-empty"><h3>Корзина пуста</h3><p>Начните с бестселлера: сыворотки Lumen 5 или помады Velvet Hour.</p><button class="btn" data-close-shop>Перейти в магазин</button></div>';
+    foot.style.display='none';return;
+  }
+  foot.style.display='';
+  var t=totals(),left=Math.max(0,FREE_FROM-t.after),pct=Math.min(100,t.after/FREE_FROM*100);
+  var lines=cart.map(function(l,k){
+    var p=byId(l.id),c=colorOf(p,l.shade);
+    var meta=p.shades?'<div class="meta"><i style="--c:'+c+'"></i>'+SHADES[p.shades][l.shade].n+'</div>':'<div class="meta">'+p.sub+'</div>';
+    return '<li class="line"><div class="arch" data-tint="'+p.tint+'">'+art(p,l.shade)+'</div><div><h3>'+p.name+'</h3>'+meta+
+      '<div class="qty"><button data-q="-1" data-k="'+k+'" aria-label="Уменьшить количество">−</button><span>'+l.qty+'</span><button data-q="1" data-k="'+k+'" aria-label="Увеличить количество">+</button></div><br><button class="rm" data-rm="'+k+'">Удалить</button></div>'+
+      '<div class="lp">'+fmt(p.price*l.qty)+'</div></li>';
+  }).join('');
+  body.innerHTML='<div class="ship">'+(left>0?'Добавьте ещё '+fmt(left)+', и доставка будет бесплатной':'Бесплатная доставка включена')+'<div class="meter" style="--p:'+pct+'%"><i></i></div></div><ul class="lines">'+lines+'</ul>';
+  foot.innerHTML='<div class="promo"><label class="sr" for="promoIn">Промокод</label><input class="field" id="promoIn" placeholder="Промокод" value="'+(promo?'VELORA10':'')+'" '+(promo?'disabled':'')+'><button class="btn ghost sm" id="promoBtn">'+(promo?'Убрать':'Применить')+'</button></div><div class="promo-msg" id="promoMsg" role="status">'+(promo?'Скидка 10% применена':'')+'</div>'+
+    '<div class="sum"><span>Товары</span><span>'+fmt(t.sub)+'</span></div>'+
+    (promo?'<div class="sum"><span>Скидка по промокоду</span><span>−'+fmt(t.disc)+'</span></div>':'')+
+    '<div class="sum"><span>Доставка</span><span>'+(t.ship?fmt(t.ship):'Бесплатно')+'</span></div>'+
+    '<div class="sum total"><span>Итого</span><span>'+fmt(t.total)+'</span></div>'+
+    '<button class="btn block" id="checkout">Оформить заказ</button>';
+}
+$('#dBody').addEventListener('click',function(e){
+  var q=e.target.closest('[data-q]');
+  if(q){var l=cart[+q.dataset.k];l.qty+=+q.dataset.q;if(l.qty<1)cart.splice(+q.dataset.k,1);persist();renderCart();return}
+  var r=e.target.closest('[data-rm]');
+  if(r){cart.splice(+r.dataset.rm,1);persist();renderCart();return}
+  if(e.target.closest('[data-close-shop]')){closeCart();$('#shop').scrollIntoView({behavior:'smooth'});return}
+  if(e.target.closest('[data-done]')){view='cart';renderCart();closeCart()}
+});
+$('#dFoot').addEventListener('click',function(e){
+  if(e.target.id==='promoBtn'){
+    if(promo){promo=false;renderCart();return}
+    var v=($('#promoIn').value||'').trim().toUpperCase(),m=$('#promoMsg');
+    if(v==='VELORA10'){promo=true;renderCart()}
+    else{m.textContent=v?'Такого промокода нет. Проверьте написание.':'Введите промокод.';m.className='promo-msg err'}
+  }
+  if(e.target.id==='checkout'){
+    var no='VL-'+(100000+Math.floor(Math.random()*900000));
+    cart=[];promo=false;persist();view='done';
+    var cc=$('#cartCount');cc.textContent='0';cc.classList.remove('on');
+    $('#dFoot').style.display='none';
+    $('#dBody').innerHTML='<div class="d-done"><h3>Спасибо за заказ</h3><p>Номер заказа '+no+'. Это демонстрационный магазин: оплата не выполнялась, товары не отправляются.</p><button class="btn" data-done>Продолжить покупки</button></div>';
+  }
+});
+$('#dFoot').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='promoIn'){e.preventDefault();$('#promoBtn').click()}});
+ 
+function openCart(){
+  lastFocus=document.activeElement;
+  var d=$('#drawer');d.classList.add('open');d.setAttribute('aria-hidden','false');
+  $('#scrim').classList.add('show');document.body.classList.add('lock');
+  setTimeout(function(){$('#closeCart').focus()},50);
+}
+function closeCart(){
+  var d=$('#drawer');d.classList.remove('open');d.setAttribute('aria-hidden','true');
+  $('#scrim').classList.remove('show');document.body.classList.remove('lock');
+  if(view==='done'){view='cart';renderCart()}
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+$('#cartBtn').addEventListener('click',openCart);
+$('#closeCart').addEventListener('click',closeCart);
+$('#scrim').addEventListener('click',closeCart);
+document.addEventListener('keydown',function(e){
+  var d=$('#drawer');
+  if(!d.classList.contains('open'))return;
+  if(e.key==='Escape'){closeCart();return}
+  if(e.key==='Tab'){
+    var f=$$('button:not([disabled]),input:not([disabled])',d).filter(function(x){return x.offsetParent!==null});
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+  }
+});
+ 
+/* ---------- misc ---------- */
+$('#menuBtn').addEventListener('click',function(){
+  var h=$('#siteHeader'),o=h.classList.toggle('nav-open');
+  this.setAttribute('aria-expanded',o);
+});
+$('#nav').addEventListener('click',function(e){if(e.target.tagName==='A')$('#siteHeader').classList.remove('nav-open')});
+$('#newsForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=$('#email').value.trim(),m=$('#newsMsg');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){m.textContent='Проверьте почту: адрес должен выглядеть как name@example.com.';m.className='form-msg err';return}
+  m.textContent='Готово. Ваш промокод VELORA10: введите его в корзине.';m.className='form-msg ok';
+  $('#email').value='';
+});
+ 
+renderShop();
+renderCart();
+})();
+</script>
+</body>
+</html>
+ 
